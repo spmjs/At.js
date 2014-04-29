@@ -1,4 +1,4 @@
-/*! jquery.atwho - v0.4.11 - 2014-04-27
+/*! jquery.atwho - v0.4.11 - 2014-04-29
 * Copyright (c) 2014 chord.luo <chord.luo@gmail.com>; 
 * homepage: http://ichord.github.com/At.js 
 * Licensed MIT
@@ -346,7 +346,7 @@ Controller = (function() {
   Controller.prototype.insert = function(content, $li) {
     var $inputor, $insert_node, class_name, content_node, insert_node, pos, range, sel, source, start_str, text;
     $inputor = this.$inputor;
-    if ($inputor.attr('contentEditable') === 'true') {
+    if ($inputor.attr('contentEditable') === 'true' && this.get_opt('insert_block', true)) {
       class_name = "atwho-view-flag atwho-view-flag-" + (this.get_opt('alias') || this.at);
       content_node = "" + content + "<span contenteditable='false'>&nbsp;<span>";
       insert_node = "<span contenteditable='false' class='" + class_name + "'>" + content_node + "</span>";
@@ -354,6 +354,8 @@ Controller = (function() {
       if (this.app.document.selection) {
         $insert_node = $("<span contenteditable='true'></span>", this.app.document).html($insert_node);
       }
+    } else {
+      $insert_node = $("<span>" + content + "&nbsp;</span>");
     }
     if ($inputor.is('textarea, input')) {
       content = '' + content;
@@ -803,7 +805,8 @@ $.fn.atwho["default"] = {
   alias: void 0,
   data: null,
   tpl: "<li data-value='${atwho-at}${name}'>${name}</li>",
-  insert_tpl: "<span>${atwho-data-value}</span>",
+  insert_tpl: "${atwho-data-value}",
+  insert_block: true,
   callbacks: DEFAULT_CALLBACKS,
   search_key: "name",
   start_with_space: true,

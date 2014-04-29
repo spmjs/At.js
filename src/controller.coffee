@@ -125,13 +125,15 @@ class Controller
   insert: (content, $li) ->
     $inputor = @$inputor
 
-    if $inputor.attr('contentEditable') == 'true'
+    if $inputor.attr('contentEditable') == 'true' and this.get_opt('insert_block', true)
       class_name = "atwho-view-flag atwho-view-flag-#{this.get_opt('alias') || @at}"
       content_node = "#{content}<span contenteditable='false'>&nbsp;<span>"
       insert_node = "<span contenteditable='false' class='#{class_name}'>#{content_node}</span>"
       $insert_node = $(insert_node, @app.document).data('atwho-data-item', $li.data('item-data'))
       if @app.document.selection
         $insert_node = $("<span contenteditable='true'></span>", @app.document).html($insert_node)
+    else
+      $insert_node = $("<span>#{content}&nbsp;</span>") 
 
     if $inputor.is('textarea, input')
       # ensure str is str.
