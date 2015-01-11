@@ -9,7 +9,9 @@
     if (typeof define === 'function' && define.amd) {
       return define(['jquery'], factory);
     } else {
-      return factory(window.jQuery);
+      var $ = require('jquery');
+      require('caret.js');
+      return factory($);
     }
   })(function($) {
 

@@ -31,8 +31,8 @@
   "spm": {
     "main": "dist/js/jquery.atwho.js",
     "dependencies": {
-      "jquery": "1.7.2",
-      "caret.js": "0.2.0"
+      "jquery": "1.9.1",
+      "caret.js": "0.2.1"
     },
     "ignore": [
       "examples",
